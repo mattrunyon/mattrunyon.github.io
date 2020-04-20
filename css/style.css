@@ -24,6 +24,16 @@ body {
   word-wrap: break-word;
   word-break: break-all;
   white-space: pre-wrap;
+  z-index: -11;
+}
+
+.bgRow {
+  padding: 0;
+  margin: 0;
+  color: #008000;
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1rem;
   z-index: -10;
 }
 

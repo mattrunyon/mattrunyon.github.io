@@ -23,9 +23,15 @@ function copyToClipboard() {
 }
 
 let bgGen;
-let bgString;
+let bgArr = [];
 let bgContainer;
 document.addEventListener('DOMContentLoaded', function() {
+  M.Sidenav.init(document.querySelectorAll('.sidenav'), {
+    menuWidth: 300,
+    closeOnClick: true,
+    edge: 'right'
+  });
+
   bgContainer = document.getElementById('bgContainer');
   let bgWidth = parseFloat(getComputedStyle(bgContainer).width);
   let bgHeight = parseFloat(getComputedStyle(bgContainer).height);
@@ -36,9 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
   let bgRows = Math.floor(bgHeight / fontHeight);
   let bgCols = Math.floor(bgWidth / fontWidth);
 
-  bgString = new Array(bgRows * bgCols + 1).join('\u2003');
+  let s = new Array(bgCols + 1).join('\u2003');
+  for (let i = 0; i < bgRows; i++) {
+    let row = document.createElement('div');
+    row.classList.add('bgRow');
+    row.textContent = s.slice(0);
+    bgContainer.appendChild(row);
+    bgArr.push(row);
+  }
 
-  bgContainer.textContent = bgString;
   bgGen = setInterval(randomBgFill, 6);
 
   setProgressBar();
@@ -49,12 +61,15 @@ function stopBgGen() {
 }
 
 function randomBgFill() {
-  let rand = Math.floor(Math.random() * (bgString.length));
+  let row = Math.floor(Math.random() * bgArr.length);
+  let col = Math.floor(Math.random() * bgArr[0].textContent.length);
   let num = Math.floor(Math.random() * 3);
   if (num === 2) {
     num = '\u2003';
   }
-  bgString = bgString.substr(0, rand) + num + bgString.substr(rand + 1);
-  bgContainer.textContent = bgString;
+
+  let rowString = bgArr[row].textContent;
+  rowString = rowString.substr(0, col) + num + rowString.substr(col + 1);
+  bgArr[row].textContent = rowString;
 }
 
