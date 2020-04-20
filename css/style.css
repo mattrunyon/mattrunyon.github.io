@@ -133,14 +133,6 @@ p {
   min-height: 75vh !important;
 }
 
-#bio {
-  background-image: url('../images/bio.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: top;
-  padding: 150px 0 0 0;
-}
-
 #software img {
   width: 100%;
   margin: 0 0 4px 0;
@@ -232,7 +224,6 @@ p {
 .home-wrap {
   position: relative;
 }
-
 
 .btn {
   border-radius: 20px;
