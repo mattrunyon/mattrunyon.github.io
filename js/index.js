@@ -1,9 +1,15 @@
-// $('.button-collapse').sideNav({
-//   menuWidth: 300, // Default is 240
-//   closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-//   edge: 'right'
-// }
-// );
+document.addEventListener('DOMContentLoaded', function() {
+  M.Sidenav.init(document.querySelectorAll('.sidenav'), {
+    menuWidth: 300,
+    closeOnClick: true,
+    edge: 'right'
+  });
+
+  initBackground();
+  window.addEventListener('resize', initBackground);
+
+  setProgressBar();
+});
 
 function setProgressBar() {
   let body = document.querySelector('body');
@@ -25,14 +31,11 @@ function copyToClipboard() {
 let bgGen;
 let bgArr = [];
 let bgContainer;
-document.addEventListener('DOMContentLoaded', function() {
-  M.Sidenav.init(document.querySelectorAll('.sidenav'), {
-    menuWidth: 300,
-    closeOnClick: true,
-    edge: 'right'
-  });
-
+function initBackground() {
   bgContainer = document.getElementById('bgContainer');
+  bgContainer.innerHTML = ''; // Clear any existing background content
+  bgArr = [];
+  clearInterval(bgGen);
   let bgWidth = parseFloat(getComputedStyle(bgContainer).width);
   let bgHeight = parseFloat(getComputedStyle(bgContainer).height);
   let fontWidth = parseFloat(getComputedStyle(document.getElementById('bgHelper')).width);
@@ -52,9 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   bgGen = setInterval(randomBgFill, 6);
-
-  setProgressBar();
-});
+}
 
 function stopBgGen() {
   clearInterval(bgGen);
