@@ -30,7 +30,7 @@ body {
   font-size: 1rem;
   line-height: 1rem;
   z-index: -10;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 /* #bgFade {
@@ -185,8 +185,8 @@ p {
 
 @media only screen and (max-width: 992px) {
   .modal {
-    max-height: 100% !important;
-    top: 0 !important;
+    max-height: 90% !important;
+    top: 5% !important;
     max-width: 100% !important;
   }
 }
@@ -194,11 +194,6 @@ p {
 .modal {
   background-color: rgba(51, 51, 51, 0.9);
   max-height: 80%;
-}
-
-.modal img {
-  width: 100%;
-  margin: auto;
 }
 
 .modal ul li.role {
@@ -226,6 +221,14 @@ p {
 
 .slides, .slides img {
   border-radius: 15px;
+}
+
+.slides img:not(.active) {
+  cursor: zoom-in;
+}
+
+.slides img:hover:not(.active) {
+  opacity: 0.8;
 }
 
 #process img{

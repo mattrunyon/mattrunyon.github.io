@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  M.Slider.init(document.querySelectorAll('.slider'), {});
+  M.Slider.init(document.querySelectorAll('.slider'), { interval: 4000 });
 
   M.Sidenav.init(document.querySelectorAll('.sidenav'), {
     menuWidth: 300,
@@ -7,13 +7,42 @@ document.addEventListener('DOMContentLoaded', function() {
     edge: 'right'
   });
 
-  M.Modal.init(document.querySelectorAll('.modal'), {});
+  M.Modal.init(document.querySelectorAll('.modal'), { });
+
+  document.querySelectorAll('.slides img').forEach(elem => {
+    elem.addEventListener('click', slideOnClick);
+  });
 
   initBackground();
   window.addEventListener('resize', initBackground);
 
   setProgressBar();
 });
+
+function slideOnClick(e) {
+  e.stopPropagation();
+
+  let slider = M.Slider.getInstance(e.target.closest('.slider'));
+  slider.pause();
+
+  let temp = e.target.cloneNode();
+  temp.classList.add('materialboxed', 'active');
+  temp.onclick = undefined;
+  temp.style.position = 'absolute';
+  temp.style.left = '0';
+  temp.style.top = '0';
+  e.target.parentElement.prepend(temp);
+  M.Materialbox.init(temp, {
+    onCloseEnd: function() {
+      temp.parentElement.parentElement.removeChild(temp.parentElement);
+      setTimeout(function() {
+        slider.next();
+        slider.start();
+      }, 500);
+    }
+  });
+  temp.click();
+}
 
 function setProgressBar() {
   let body = document.querySelector('body');
