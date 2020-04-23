@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   initBackground();
-  window.addEventListener('resize', initBackground);
+  window.addEventListener('resize', resizeBackground);
 
   setProgressBar();
 });
@@ -65,9 +65,6 @@ let bgArr = [];
 let bgContainer;
 function initBackground() {
   bgContainer = document.getElementById('bgContainer');
-  bgContainer.innerHTML = ''; // Clear any existing background content
-  bgArr = [];
-  clearInterval(bgGen);
   let bgWidth = parseFloat(getComputedStyle(bgContainer).width);
   let bgHeight = parseFloat(getComputedStyle(bgContainer).height);
   let fontWidth = parseFloat(getComputedStyle(document.getElementById('bgHelper')).width);
@@ -89,6 +86,50 @@ function initBackground() {
   bgGen = setInterval(randomBgFill, 6);
 }
 
+function resizeBackground() {
+  bgContainer = document.getElementById('bgContainer');
+  let bgWidth = parseFloat(getComputedStyle(bgContainer).width);
+  let bgHeight = parseFloat(getComputedStyle(bgContainer).height);
+  let fontWidth = parseFloat(getComputedStyle(document.getElementById('bgHelper')).width);
+  let fontHeight = parseFloat(getComputedStyle(document.getElementById('bgHelper')).height);
+
+  bgContainer.style.padding = `${(bgHeight % fontHeight) / 2}px ${(bgWidth % fontWidth) / 2}px`;
+  let bgRows = Math.floor(bgHeight / fontHeight);
+  let bgCols = Math.floor(bgWidth / fontWidth);
+
+  while (bgRows < bgArr.length) { // Shrinking number of rows
+    let elem = bgArr.pop();
+    elem.parentElement.removeChild(elem);
+  }
+  while (bgRows > bgArr.length) { // Increasing number of rows
+    let row = document.createElement('div');
+    row.classList.add('bgRow');
+
+    let s = '';
+    for (let i = 0; i < bgCols; i++) {
+      s += '\u2003';
+    }
+
+    row.textContent = s;
+    bgContainer.appendChild(row);
+    bgArr.push(row);
+  }
+
+  if (bgCols < bgArr[0].textContent.length) { // Decrease number of cols
+    for (let elem of bgArr) {
+      elem.textContent = elem.textContent.substr(0, bgCols + 1);
+    }
+  } else if (bgCols > bgArr[0].textContent.length) { // Increase number of cols
+    for (let elem of bgArr) {
+      let s = elem.textContent;
+      while (s.length < bgCols) {
+        s += '\u2003';
+      }
+      elem.textContent = s;
+    }
+  }
+}
+
 function stopBgGen() {
   clearInterval(bgGen);
 }
@@ -97,9 +138,7 @@ function randomBgFill() {
   let row = Math.floor(Math.random() * bgArr.length);
   let col = Math.floor(Math.random() * bgArr[0].textContent.length);
   let num = Math.floor(Math.random() * 3);
-  if (num === 2) {
-    num = '\u2003';
-  }
+  num = num === 2 ? '\u2003' : num;
 
   let rowString = bgArr[row].textContent;
   rowString = rowString.substr(0, col) + num + rowString.substr(col + 1);
