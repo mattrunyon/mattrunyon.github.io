@@ -8,8 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   M.Modal.init(document.querySelectorAll('.modal'), { });
 
+  M.Materialbox.init(document.querySelectorAll('.materialboxed'), {});
+
   document.querySelectorAll('.slides img').forEach(elem => {
     elem.addEventListener('click', slideOnClick);
+  });
+
+  document.querySelectorAll('.modal-close').forEach(elem => {
+    elem.addEventListener('click', closeModal);
   });
 
   initBackground();
@@ -143,5 +149,10 @@ function randomBgFill() {
   let rowString = bgArr[row].textContent;
   rowString = rowString.substr(0, col) + num + rowString.substr(col + 1);
   bgArr[row].textContent = rowString;
+}
+
+function closeModal(e) {
+  let elem = e.target;
+  M.Modal.getInstance(elem.closest('.modal')).close();
 }
 
