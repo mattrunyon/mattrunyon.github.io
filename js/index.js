@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+  M.Slider.init(document.querySelectorAll('.slider'), {});
+
   M.Sidenav.init(document.querySelectorAll('.sidenav'), {
     menuWidth: 300,
     closeOnClick: true,
     edge: 'right'
   });
+
+  M.Modal.init(document.querySelectorAll('.modal'), {});
 
   initBackground();
   window.addEventListener('resize', initBackground);

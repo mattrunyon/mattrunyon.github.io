@@ -1,11 +1,6 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 
-html {
-  /* cursor: url('../images/icons/cursor.png'), auto; */
-}
-
 body {
-  /* background: #000 url('../images/bg.jpg') no-repeat; */
   background-color: #000;
   color: #eee;
   margin: 0;
@@ -35,16 +30,17 @@ body {
   font-size: 1rem;
   line-height: 1rem;
   z-index: -10;
+  opacity: 0.4;
 }
 
-#bgFade {
+/* #bgFade {
   background-color: #333;
   opacity: 0.5;
   position: fixed;
   height: 100vh;
   width: 100vw;
   z-index: -9;
-}
+} */
 
 #bgHelper {
   position: absolute;
@@ -132,13 +128,13 @@ p {
   margin-top: 20px;
 }
 .section {
-  padding: 150px 20px 150px 20px;
+  padding: 80px 20px 80px 20px;
   min-height: 100vh;
 }
 
 #contact {
   /* padding: 250px 0 0 0; */
-  min-height: 75vh !important;
+  /* min-height: 75vh !important; */
 }
 
 #software img {
@@ -187,21 +183,49 @@ p {
   min-height: 50vh;
 }
 
-#summary ul li {
+@media only screen and (max-width: 992px) {
+  .modal {
+    max-height: 100% !important;
+    top: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+.modal {
+  background-color: rgba(51, 51, 51, 0.9);
+  max-height: 80%;
+}
+
+.modal img {
+  width: 100%;
+  margin: auto;
+}
+
+.modal ul li.role {
   line-height: 30px;
   height: 30px;
   color: #eee;
-  background-color: #00FF00;
+  background-color: #008000;
   border-radius: 15px;
   margin-bottom: 5px;
   max-width: 200px;
   padding-left: 15px;
 }
 
-#summary ul li.collab {
+.modal ul li.collab {
+  line-height: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  max-width: 200px;
+  padding-left: 15px;
   color: #eee;
   background-color: rgba(0,0,0,0.1);
   border: 1px solid #777;
+}
+
+.slides, .slides img {
+  border-radius: 15px;
 }
 
 #process img{
@@ -239,7 +263,6 @@ p {
 
 .navbar-fixed {
   position: absolute;
-  z-index:999999999;
 }
 
 nav {
@@ -290,6 +313,10 @@ nav .sidenav-trigger:hover {
     margin-top: 34px;
   }
 
+}
+
+#main-progressbar-container {
+  display: none;
 }
 
 @media only screen and (min-width: 601px){
@@ -565,6 +592,8 @@ nav .sidenav-trigger {
   line-height: 60px;
   padding: 0 30px;
   bottom: 0;
+  width: 100%;
+  position: absolute;
 }
 
 .publication {
@@ -641,6 +670,8 @@ nav .sidenav-trigger {
 #email-hidden {
   height: 0;
   width: 0;
+  position: absolute;
+  left: -1000px;
 }
 
 #copiedToast {
