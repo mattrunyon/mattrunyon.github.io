@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   M.Sidenav.init(document.querySelectorAll('.sidenav'), {
     menuWidth: 300,
-    closeOnClick: true,
     edge: 'right'
   });
 
